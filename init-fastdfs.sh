@@ -1,5 +1,4 @@
 #!/bin/bash
-#
 #centos7.4安装fastdfs
 chmod 777 -R /usr/local/src/fastdfs
 cd /usr/local/src/fastdfs/rpm
@@ -27,10 +26,7 @@ rpm -ivh /usr/local/src/fastdfs/rpm/*.rpm --force --nodeps
  sed -i 's|base_path=.*|base_path=/data/fdfs/tracker|' /etc/fdfs/tracker.conf 
  sed -i 's|http.server_port=.*|http.server_port=80|' /etc/fdfs/tracker.conf 
 #添加systemd的units文件
- cat > /usr/lib/systemd/system/fdfs_trackerd <<EOF
-# Systemd unit file for default tomcat
-# 
-
+cat > /usr/lib/systemd/system/fdfs_trackerd <<EOF
 [Unit]
 Description=FastDFS tracker script
 After=syslog.target network.target
@@ -140,7 +136,7 @@ EOF
   ln -sv /data/fdfs/storage/data  /data/fdfs/storage/data/M00 
 #7、启动nginx和重启storage并上传文件测试
 #服务随机启动
-cat >> /usr/lib/systemd/system/nginx.service <<EOF
+cat > /usr/lib/systemd/system/nginx.service <<EOF
 [Unit]
 Description=nginx 
 After=network.target 
